@@ -1,7 +1,9 @@
 name: liquid_level_chart
 description: "A highly customizable and interactive Flutter package for displaying liquid levels in tanks or containers as dynamic bar charts."
-version: 0.0.1
-homepage: "https://github.com/jabranhaider/liquid_level_chart"
+version: 0.0.2
+repository: "https://github.com/shifu-devs/liquid_level_chart"
+homepage: "https://github.com/shifu-devs/liquid_level_chart"
+issue_tracker: "https://github.com/shifu-devs/liquid_level_chart/issues"
 
 environment:
   sdk: ^3.11.0
