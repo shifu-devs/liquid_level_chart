@@ -79,4 +79,4 @@ class MyChartPage extends StatelessWidget {
 ## Additional information
 
 For more information, feel free to check out the example provided in the `example` folder. 
-Contribute to the project by submitting issues or pull requests on [GitHub](https://github.com/jabranhaider/liquid_level_chart).
+Contribute to the project by submitting issues or pull requests on [GitHub](https://github.com/shifu-devs/liquid_level_chart).
