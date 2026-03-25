@@ -2,6 +2,8 @@
 
 A highly customizable, interactive, and beautifully animated Flutter package for displaying liquid levels in tanks or containers as dynamic bar charts.
 
+![Demo](https://raw.githubusercontent.com/shifu-devs/liquid_level_chart/main/demo.gif)
+
 ## Features
 
 - Display multiple tanks/containers with custom labels and colors.

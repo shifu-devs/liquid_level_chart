@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:liquid_level_chart/liquid_level_chart.dart';
 
@@ -50,29 +51,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // Sample data simulating tanks using generic Enum
+  late List<LiquidData<LiquidType>> staticData;
+  late List<LiquidData<LiquidType>> animatedData;
+  Timer? _timer;
 
   @override
-  Widget build(BuildContext context) {
-    final List<LiquidData<LiquidType>> data = [
+  void initState() {
+    super.initState();
+    staticData = _generateData();
+    animatedData = _generateData();
+
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (!mounted) return;
+      setState(() {
+        animatedData = animatedData.map((e) {
+          // Change filled randomly or sequentially
+          double newFilled = e.filled + (e.total * 0.1);
+          if (newFilled > e.total) {
+            newFilled = 0;
+          }
+          return LiquidData(
+            name: e.name,
+            type: e.type,
+            filled: newFilled,
+            total: e.total,
+            color: e.color,
+          );
+        }).toList();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  List<LiquidData<LiquidType>> _generateData() {
+    return [
       LiquidData(
         name: "Tank 1",
         type: LiquidType.diesel,
-        filled: 6000,
+        filled: 4000,
         total: 8000,
-        color: Colors.blueAccent,
       ),
-      LiquidData(
-        name: "Tank 2",
-        type: LiquidType.a80,
-        filled: 5500,
-        total: 7500,
-      ), // testing default theme color
+      // testing default theme color
       LiquidData(
         name: "Tank 3",
         type: LiquidType.a92,
         filled: 10000,
         total: 11500,
-        color: Colors.redAccent,
+        color: Colors.green,
       ),
       LiquidData(
         type: LiquidType.water,
@@ -80,7 +110,24 @@ class _MyHomePageState extends State<MyHomePage> {
         total: 10000,
         color: Colors.cyan,
       ), // testing no name
+      LiquidData(
+        name: "Tank 1",
+        type: LiquidType.diesel,
+        filled: 4000,
+        total: 8000,
+        color: Colors.blueAccent,
+      ),
+      LiquidData(
+        name: "Tank 1",
+        type: LiquidType.diesel,
+        filled: 4000,
+        total: 8000,
+      ),
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -93,25 +140,26 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Basic Default Theme:',
+                'Basic Default Theme (Static):',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              LiquidLevelChart<LiquidType>(data: data),
+              LiquidLevelChart<LiquidType>(data: staticData),
 
               const SizedBox(height: 60),
               const Text(
-                'Custom Theme, Animations & Custom Tooltip Builder:',
+                'Custom Theme & Animations (Updates 1s):',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
               LiquidLevelChart<LiquidType>(
-                data: data,
+                data: animatedData,
                 animate: true,
-                animationDuration: const Duration(seconds: 2),
+                animationDuration: const Duration(seconds: 1),
                 theme: LiquidChartTheme(
                   containerHeight: 200,
+                  containerWidth: MediaQuery.of(context).size.width,
                   barWidth: 40,
                   baseColor: Colors.deepPurple,
                   textStyle: const TextStyle(

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Defines the styling properties for the [LiquidLevelChart].
 class LiquidChartTheme {
-  /// Overall height of the chart area.
+  /// Overall height, width of the chart area.
   final double containerHeight;
+  final double? containerWidth;
 
   /// Width of each bar in the chart.
   final double barWidth;
@@ -25,6 +26,7 @@ class LiquidChartTheme {
 
   const LiquidChartTheme({
     this.containerHeight = 200.0,
+    this.containerWidth,
     this.barWidth = 35.0,
     this.baseColor,
     this.textStyle,
@@ -40,6 +42,7 @@ class LiquidChartTheme {
   /// Factory constructor to copy properties with modifications
   LiquidChartTheme copyWith({
     double? containerHeight,
+    double? containerWidth,
     double? barWidth,
     Color? baseColor,
     TextStyle? textStyle,
@@ -49,12 +52,14 @@ class LiquidChartTheme {
   }) {
     return LiquidChartTheme(
       containerHeight: containerHeight ?? this.containerHeight,
+      containerWidth: containerWidth ?? this.containerWidth,
       barWidth: barWidth ?? this.barWidth,
       baseColor: baseColor ?? this.baseColor,
       textStyle: textStyle ?? this.textStyle,
       borderColor: borderColor ?? this.borderColor,
       tooltipTextStyle: tooltipTextStyle ?? this.tooltipTextStyle,
-      tooltipBackgroundColor: tooltipBackgroundColor ?? this.tooltipBackgroundColor,
+      tooltipBackgroundColor:
+          tooltipBackgroundColor ?? this.tooltipBackgroundColor,
     );
   }
 }
