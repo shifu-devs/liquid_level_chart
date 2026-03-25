@@ -1,3 +1,8 @@
+## 0.0.3
+
+* Allowed customization of the graph container width via `LiquidChartTheme`.
+* Updated the default text color for improved visibility.
+
 ## 0.0.2
 
 * Added missing `repository` and `issue_tracker` URLs to `pubspec.yaml` to improve `pub.dev` indexing and links.
